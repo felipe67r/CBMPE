@@ -1,8 +1,6 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>evidencias</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-main-header pageTitle="Evidências" [showBackButton]="true">
+  
+</app-main-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -11,3 +9,13 @@
     </ion-toolbar>
   </ion-header>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <app-nav-button 
+      label="Próximo" 
+      link="/conclusao" 
+      buttonColor="primary">
+    </app-nav-button>
+  </ion-toolbar>
+</ion-footer>

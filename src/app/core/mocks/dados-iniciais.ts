@@ -1,4 +1,4 @@
-import { Ocorrencia } from '../models/ocorrencias.model';
+import { Ocorrencia } from '../models/ocorrencia.model';
 
 export const OCORRENCIAS_MOCK: Ocorrencia[] = [
   {

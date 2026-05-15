@@ -1,13 +1,18 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-main-header pageTitle="Ocorrências Despachadas" [showBackButton]="false">
+</app-main-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-padding">
+    <p>Bem-vindo ao sistema de ocorrências.</p>
+  </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <app-nav-button 
+      label="Nova Ocorrência de Campo" 
+      link="/triagem" 
+      buttonColor="success">
+    </app-nav-button>
+  </ion-toolbar>
+</ion-footer>
