@@ -1,0 +1,10 @@
+<ion-card class="card-container">
+  <ion-card-header *ngIf="title">
+    <ion-card-title>{{ title }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p *ngIf="content">{{ content }}</p>
+    <ng-content></ng-content>
+  </ion-card-content>
+</ion-card>

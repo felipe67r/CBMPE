@@ -1,0 +1,49 @@
+@import '../../../theme/variables';
+
+.btn-base {
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-amarelo-logo {
+  --background: #{$amarelo-logo};
+  --color: #333;
+
+  &:hover:not(:disabled) {
+    --background: darken($amarelo-logo, 10%);
+  }
+}
+
+.btn-azul-logo {
+  --background: #{$azul-logo};
+  --color: white;
+
+  &:hover:not(:disabled) {
+    --background: darken($azul-logo, 10%);
+  }
+}
+
+.btn-vermelho-logo {
+  --background: #{$vermelho-logo};
+  --color: white;
+
+  &:hover:not(:disabled) {
+    --background: darken($vermelho-logo, 10%);
+  }
+}
+
+.btn-cinza-cbmpe {
+  --background: #{$cinza-cbmpe};
+  --color: white;
+
+  &:hover:not(:disabled) {
+    --background: darken($cinza-cbmpe, 10%);
+  }
+}

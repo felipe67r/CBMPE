@@ -1,0 +1,20 @@
+<ng-container *ngIf="type === 'link'; else buttonTemplate">
+  <ion-button
+    [routerLink]="link"
+    [disabled]="disabled"
+    [class]="'btn-' + color"
+    class="btn-base">
+    {{ label }}
+  </ion-button>
+</ng-container>
+
+<ng-template #buttonTemplate>
+  <ion-button
+    [type]="type"
+    (click)="handleClick()"
+    [disabled]="disabled"
+    [class]="'btn-' + color"
+    class="btn-base">
+    {{ label }}
+  </ion-button>
+</ng-template>
