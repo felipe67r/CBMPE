@@ -12,25 +12,24 @@ $RECYCLE.BIN/
 *.log
 log.txt
 
-
-/.sourcemaps
-/.versions
-/coverage
+sourcemaps/
+versions/
+coverage/
 
 # Ionic
-/.ionic
-/www
-/platforms
-/plugins
+.ionic/
+www/
+platforms/
+plugins/
 
 # Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+dist/
+tmp/
+out-tsc/
+bazel-out/
 
 # Node
-/node_modules
+node_modules/
 npm-debug.log
 yarn-error.log
 
@@ -52,18 +51,16 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-
 # Miscellaneous
-/.angular
-/.angular/cache
+.angular/
+.angular/cache/
 .sass-cache/
-/.nx
-/.nx/cache
-/connect.lock
-/coverage
-/libpeerconnection.log
+.nx/
+.nx/cache/
+connect.lock
+libpeerconnection.log
 testem.log
-/typings
+typings/
 
 # System files
 .DS_Store
