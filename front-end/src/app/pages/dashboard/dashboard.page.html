@@ -1,18 +1,28 @@
-<app-main-header pageTitle="Ocorrências Despachadas" [showBackButton]="false">
+<app-main-header [showBackButton]="false">
 </app-main-header>
 
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
-    <p>Bem-vindo ao sistema de ocorrências.</p>
+    
+    <div class="dashboard-header">
+      <h2 class="page-subtitle">Ocorrências despachadas</h2>
+      <div class="badge-ativas-card">
+        <span>{{ totalAtivas }} Ativas</span>
+      </div>
+    </div>
+
+    <div class="cards-container">
+  <app-ocorrencia-card 
+    *ngFor="let item of ocorrencias" 
+    [ocorrencia]="item"
+    (onIniciar)="iniciarAtendimento($event)"> </app-ocorrencia-card>
+</div>
+
   </div>
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <app-nav-button 
-      label="Nova Ocorrência de Campo" 
-      link="/triagem" 
-      buttonColor="success">
-    </app-nav-button>
+    <app-nav-button label="Nova Ocorrência de Campo" link="/triagem" buttonColor="success"></app-nav-button>
   </ion-toolbar>
 </ion-footer>

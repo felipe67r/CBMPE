@@ -1,18 +1,22 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="light">
-    <ion-buttons slot="start">
+    
+    <ion-buttons slot="start" class="custom-toolbar-buttons">
       <ion-back-button *ngIf="showBackButton" defaultHref="/dashboard" text="Voltar"></ion-back-button>
-      <ion-img *ngIf="!showBackButton" src="assets/logo-cbmpe.png" style="width: 35px; margin-left: 10px;"></ion-img>
+      
+      <img *ngIf="!showBackButton" 
+           src="assets/logo-cbmpe.png" 
+           style="width: 70px; height: auto; margin-left: 8px; display: block;">
     </ion-buttons>
 
     <ion-title class="ion-text-center">
-      <div style="display: flex; flex-direction: column; line-height: 1.2;">
+      <div class="custom-title-container">
         <span style="font-weight: bold; font-size: 1.1rem;">CBMPE</span>
-        <span style="font-size: 0.8rem;">(Unidade)</span>
+        <span style="font-size: 0.8rem;">SEDE / 1ª SATEC </span>
       </div>
     </ion-title>
 
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" class="custom-toolbar-buttons">
       <div style="display: flex; flex-direction: column; align-items: center; margin-right: 10px;">
         <ion-icon name="wifi-outline" [color]="isOnline ? 'success' : 'medium'"></ion-icon>
         <span style="font-size: 0.6rem; font-weight: bold;">{{ isOnline ? 'Online' : 'Offline' }}</span>
