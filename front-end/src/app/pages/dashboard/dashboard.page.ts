@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFooter } from '@ionic/angular/standalone';
+import { IonContent, IonToolbar, IonFooter, IonBadge } from '@ionic/angular/standalone';
 import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
 import { NavButtonComponent } from 'src/app/components/nav-button/nav-button.component';
 import { OcorrenciaCardComponent } from 'src/app/components/ocorrencia-card/ocorrencia-card.component';
@@ -23,14 +23,13 @@ interface Ocorrencia {
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
   imports: [
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
-    IonFooter, 
-    CommonModule, 
-    FormsModule, 
-    MainHeaderComponent, 
+    IonContent,
+    IonToolbar,
+    IonFooter,
+    IonBadge,
+    CommonModule,
+    FormsModule,
+    MainHeaderComponent,
     NavButtonComponent,
     OcorrenciaCardComponent
   ]

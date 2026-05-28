@@ -1,0 +1,109 @@
+$amarelo-logo: #fff212;
+$azul-logo: #3e4095;
+$vermelho-logo: #ed3237;
+$cinza-cbmpe: #717878;
+
+.login-content {
+  --background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 360px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-brand {
+  text-align: center;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-logo-img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+  object-fit: contain;
+}
+
+.login-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: $azul-logo;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.login-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+
+  ion-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  ion-input,
+  ion-select {
+    font-size: 14px;
+    padding: 12px 0;
+  }
+}
+
+.login-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.enter-button {
+  --background: $vermelho-logo;
+  --background-hover: #cc2830;
+  --color: white;
+  font-weight: 600;
+  height: 48px;
+  font-size: 16px;
+}
+
+.admin-button {
+  --background: transparent;
+  --border-color: #ddd;
+  --color: #666;
+  font-weight: 600;
+  height: 48px;
+  font-size: 16px;
+}
+
+.login-message {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  color: #856404;
+  font-size: 12px;
+  text-align: center;
+}

@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http'; // <-- IMPORTA O HTTP CLIENT
 import {
   IonButton,
-  IonCard,
-  IonCardContent,
   IonContent,
   IonInput,
   IonItem,
@@ -22,8 +20,6 @@ import {
   standalone: true,
   imports: [
     IonContent,
-    IonCard,
-    IonCardContent,
     IonButton,
     IonItem,
     IonLabel,

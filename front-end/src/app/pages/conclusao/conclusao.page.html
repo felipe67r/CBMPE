@@ -1,20 +1,48 @@
-<app-main-header pageTitle="Conclusão" [showBackButton]="true">
-  
+<app-main-header pageTitle="Triagem de Ocorrência" [showBackButton]="true">
 </app-main-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">conclusao</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="conclusao-content">
+  <div class="page-container">
+    <div class="page-header">
+      <h2 class="page-title">Conclusão</h2>
+      <p class="page-description">Finalize o atendimento da ocorrência</p>
+    </div>
+
+    <form class="conclusao-form">
+      <div class="form-section">
+        <h3 class="section-title">Encerramento Normal</h3>
+
+        <ion-item class="form-item">
+          <ion-label position="stacked">Encerramento de Atendimento</ion-label>
+          <ion-select interface="popover" placeholder="Selecione">
+            <ion-select-option value="option1">Opção 1</ion-select-option>
+            <ion-select-option value="option2">Opção 2</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="form-item">
+          <ion-label position="stacked">Observações</ion-label>
+          <ion-textarea rows="3" placeholder="Adicione observações finais"></ion-textarea>
+        </ion-item>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">Agentes Enviados</h3>
+
+        <ion-item class="form-item">
+          <ion-label position="stacked">Agentes Enviados</ion-label>
+          <ion-input placeholder="Nomes dos agentes"></ion-input>
+        </ion-item>
+      </div>
+    </form>
+  </div>
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <app-nav-button 
-      label="Finalizar" 
-      link="/dashboard" 
+    <app-nav-button
+      label="Finalizar e Sincronizar"
+      link="/dashboard"
       buttonColor="success">
     </app-nav-button>
   </ion-toolbar>

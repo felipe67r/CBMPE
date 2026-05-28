@@ -1,23 +1,22 @@
 <app-main-header [showBackButton]="false">
 </app-main-header>
 
-<ion-content [fullscreen]="true">
-  <div class="ion-padding">
-    
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <div class="dashboard-container">
     <div class="dashboard-header">
-      <h2 class="page-subtitle">Ocorrências despachadas</h2>
-      <div class="badge-ativas-card">
-        <span>{{ totalAtivas }} Ativas</span>
+      <div class="dashboard-title-section">
+        <h2 class="dashboard-title">Ocorrências despachadas</h2>
+        <ion-badge class="active-badge">{{ totalAtivas }} Ativas</ion-badge>
       </div>
     </div>
 
-    <div class="cards-container">
-  <app-ocorrencia-card 
-    *ngFor="let item of ocorrencias" 
-    [ocorrencia]="item"
-    (onIniciar)="iniciarAtendimento($event)"> </app-ocorrencia-card>
-</div>
-
+    <div class="dashboard-cards">
+      <app-ocorrencia-card
+        *ngFor="let item of ocorrencias"
+        [ocorrencia]="item"
+        (onIniciar)="iniciarAtendimento($event)">
+      </app-ocorrencia-card>
+    </div>
   </div>
 </ion-content>
 
