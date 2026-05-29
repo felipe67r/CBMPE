@@ -35,6 +35,9 @@ import {
   u
 } from "./chunk-5URKD7XC.js";
 import {
+  NgControl
+} from "./chunk-BRI7I3JY.js";
+import {
   ActivatedRoute,
   ChildrenOutletContexts,
   NavigationCancel,
@@ -45,9 +48,6 @@ import {
   RouterLink,
   UrlSerializer
 } from "./chunk-TLL3AFN3.js";
-import {
-  NgControl
-} from "./chunk-BRI7I3JY.js";
 import {
   Location,
   LocationStrategy
@@ -3421,4 +3421,4 @@ export {
   OverlayBaseController,
   IonicRouteStrategy
 };
-//# sourceMappingURL=chunk-RQJW3BWR.js.map
+//# sourceMappingURL=chunk-FAXFNUZL.js.map
