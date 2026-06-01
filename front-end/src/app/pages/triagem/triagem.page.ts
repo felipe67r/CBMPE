@@ -1,22 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonToolbar, IonFooter, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonTextarea } from '@ionic/angular/standalone';
+import { IonicModule, NavController } from '@ionic/angular';
 import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
-import { NavButtonComponent } from 'src/app/components/nav-button/nav-button.component';
+
+import { RouterLink } from '@angular/router'; 
+
+import { addIcons } from 'ionicons';
+import { arrowBack, arrowDown, location } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-triagem',
+  selector: 'app-app-triagem',
   templateUrl: './triagem.page.html',
   styleUrls: ['./triagem.page.scss'],
   standalone: true,
-  imports: [IonContent, IonToolbar, CommonModule, FormsModule, MainHeaderComponent, NavButtonComponent, IonFooter, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonTextarea]
+  imports: [
+    IonicModule, 
+    CommonModule, 
+    FormsModule, 
+    MainHeaderComponent, 
+    RouterLink 
+  ]
 })
 export class TriagemPage implements OnInit {
+  gravidadeSelecionada: string = '';
+  vitimaSelecionada: string = '';
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private navCtrl: NavController) {
+    addIcons({ arrowBack, arrowDown, location });
   }
 
+  ngOnInit() {}
+
+  voltar() { this.navCtrl.back(); }
+  setGravidade(nivel: string) { this.gravidadeSelecionada = nivel; }
+  setVitima(estado: string) { this.vitimaSelecionada = estado; }
 }

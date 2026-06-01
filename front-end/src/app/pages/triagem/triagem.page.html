@@ -1,45 +1,111 @@
-<app-main-header pageTitle="Triagem (Nova Ocorrência)" [showBackButton]="true">
-</app-main-header>
+<app-main-header [showBackButton]="false"></app-main-header>
 
-<ion-content [fullscreen]="true" class="triagem-content">
-  <div class="page-container">
-    <div class="page-header">
-      <h2 class="page-title">Triagem de Ocorrência</h2>
-      <p class="page-description">Preencha os dados da triagem</p>
+<ion-content class="triagem-content">
+  
+  <div class="custom-page-header">
+    <button class="custom-back-btn" (click)="voltar()">
+      <ion-icon name="arrow-back"></ion-icon>
+      <span>Voltar</span>
+    </button>
+    <div class="title-container">
+      <h2>Triagem de Ocorrência</h2>
+      <p>Protocolo da ocorrência: 001</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+    
+    <div class="custom-field">
+      <label>Tipo de Ocorrência</label>
+      <div class="select-wrapper">
+        <select>
+          <option value="" disabled selected></option>
+          <option value="incendio">Incêndio</option>
+          <option value="salvamento">Salvamento</option>
+          <option value="aph">Atendimento Pré-Hospitalar</option>
+          <option value="servicos">Serviços Técnicos</option>
+        </select>
+        <ion-icon name="arrow-down"></ion-icon>
+      </div>
     </div>
 
-    <form class="triagem-form">
-      <div class="form-section">
-        <h3 class="section-title">Informações Básicas</h3>
-
-        <ion-item class="form-item">
-          <ion-label position="stacked">Tipo de Ocorrência</ion-label>
-          <ion-select interface="popover" placeholder="Selecione o tipo">
-            <ion-select-option value="tipo-1">Tipo 1</ion-select-option>
-            <ion-select-option value="tipo-2">Tipo 2</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item class="form-item">
-          <ion-label position="stacked">Descrição</ion-label>
-          <ion-textarea rows="3" placeholder="Descreva a ocorrência"></ion-textarea>
-        </ion-item>
-
-        <ion-item class="form-item">
-          <ion-label position="stacked">Local</ion-label>
-          <ion-input placeholder="Local da ocorrência"></ion-input>
-        </ion-item>
+    <div class="custom-field">
+      <label>Nível de Gravidade</label>
+      <div class="button-group">
+        <button class="btn-gravidade baixa" [class.active]="gravidadeSelecionada === 'baixa'" (click)="setGravidade('baixa')">Baixa</button>
+        <button class="btn-gravidade media" [class.active]="gravidadeSelecionada === 'media'" (click)="setGravidade('media')">Média</button>
+        <button class="btn-gravidade alta" [class.active]="gravidadeSelecionada === 'alta'" (click)="setGravidade('alta')">Alta</button>
       </div>
-    </form>
-  </div>
-</ion-content>
+    </div>
 
-<ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <app-nav-button
-      label="Próximo"
-      link="/evidencias"
-      buttonColor="primary">
-    </app-nav-button>
-  </ion-toolbar>
-</ion-footer>
+    <div class="custom-field">
+      <label>Presença de Vítimas</label>
+      <div class="button-group victims-group">
+        <button class="btn-vitima sim" [class.active]="vitimaSelecionada === 'sim'" (click)="setVitima('sim')">Sim</button>
+        <button class="btn-vitima nao" [class.active]="vitimaSelecionada === 'nao'" (click)="setVitima('nao')">Não</button>
+        
+        <div class="select-wrapper select-qnt">
+          <select [disabled]="vitimaSelecionada !== 'sim'">
+            <option value="" disabled selected>Qnt.</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6+">6+</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-field">
+      <label>Riscos adicionais</label>
+      <div class="select-wrapper">
+        <select>
+          <option value="" disabled selected></option>
+          <option value="eletrico">Risco Elétrico</option>
+          <option value="quimico">Produto Químico</option>
+          <option value="estrutura">Risco Estrutural</option>
+          <option value="ambiental">Riscos Ambientais</option>
+        </select>
+        <ion-icon name="arrow-down"></ion-icon>
+      </div>
+    </div>
+
+    <div class="custom-field">
+      <label>Status do Local</label>
+      <div class="select-wrapper">
+        <select>
+          <option value="" disabled selected></option>
+          <option value="controlado">Cenário Controlado</option>
+          <option value="critico">Cenário Crítico</option>
+          <option value="vitimas-presas">Vítimas Presas</option>
+          <option value="orgaos">Apoio de Outros Órgãos no Local</option>
+        </select>
+        <ion-icon name="arrow-down"></ion-icon>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="gps-card">
+    <div class="gps-header">
+      <label>Localização GPS</label>
+      <ion-icon name="location" color="danger"></ion-icon>
+    </div>
+    
+    <div class="gps-display">
+      <span class="gps-title">Coordenadas Capturadas</span>
+      <span class="gps-coord">Latitude: -</span>
+      <span class="gps-coord">Longitude: -</span>
+    </div>
+
+    <button class="btn-white">Recapturar GPS</button>
+  </div>
+
+  <div class="footer-action">
+    <button class="btn-black-block" routerLink="/evidencias">Ir para Coleta de Evidências</button>
+  </div>
+
+</ion-content>
