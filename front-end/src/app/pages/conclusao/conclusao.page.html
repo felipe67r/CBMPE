@@ -1,49 +1,47 @@
-<app-main-header pageTitle="Triagem de Ocorrência" [showBackButton]="true">
-</app-main-header>
+<app-main-header [showBackButton]="false"></app-main-header>
 
-<ion-content [fullscreen]="true" class="conclusao-content">
-  <div class="page-container">
-    <div class="page-header">
-      <h2 class="page-title">Conclusão</h2>
-      <p class="page-description">Finalize o atendimento da ocorrência</p>
+<ion-content class="conclusao-content" [fullscreen]="true">
+  
+  <div class="page-layout">
+    
+    <div class="custom-page-header">
+      <button class="custom-back-btn" (click)="voltar()">
+        <ion-icon name="arrow-back"></ion-icon>
+        <span>Voltar</span>
+      </button>
+      <div class="title-container">
+        <h2>Conclusão</h2>
+      </div>
     </div>
 
-    <form class="conclusao-form">
-      <div class="form-section">
-        <h3 class="section-title">Encerramento Normal</h3>
+    <div class="signature-section">
+      
+      <button class="btn-limpar" (click)="limpar()">
+        Limpar
+      </button>
 
-        <ion-item class="form-item">
-          <ion-label position="stacked">Encerramento de Atendimento</ion-label>
-          <ion-select interface="popover" placeholder="Selecione">
-            <ion-select-option value="option1">Opção 1</ion-select-option>
-            <ion-select-option value="option2">Opção 2</ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item class="form-item">
-          <ion-label position="stacked">Observações</ion-label>
-          <ion-textarea rows="3" placeholder="Adicione observações finais"></ion-textarea>
-        </ion-item>
+      <div class="canvas-wrapper">
+        <div class="canvas-placeholder" *ngIf="isCanvasEmpty">
+          Assine aqui
+        </div>
+        <canvas #signatureCanvas
+          (mousedown)="startDrawing($event)"
+          (mousemove)="draw($event)"
+          (mouseup)="stopDrawing()"
+          (mouseleave)="stopDrawing()"
+          (touchstart)="startDrawing($event)"
+          (touchmove)="draw($event)"
+          (touchend)="stopDrawing()">
+        </canvas>
       </div>
 
-      <div class="form-section">
-        <h3 class="section-title">Agentes Enviados</h3>
+    </div>
 
-        <ion-item class="form-item">
-          <ion-label position="stacked">Agentes Enviados</ion-label>
-          <ion-input placeholder="Nomes dos agentes"></ion-input>
-        </ion-item>
-      </div>
-    </form>
+    <div class="footer-action">
+      <button class="btn-black-block" (click)="finalizarESincronizar()">
+        Finalizar e Sincronizar
+      </button>
+    </div>
+
   </div>
 </ion-content>
-
-<ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <app-nav-button
-      label="Finalizar e Sincronizar"
-      link="/dashboard"
-      buttonColor="success">
-    </app-nav-button>
-  </ion-toolbar>
-</ion-footer>
