@@ -1,0 +1,56 @@
+<ion-card class="ocorrencia-card">
+  
+  <ion-card-header class="card-top-section" style="padding: 16px; padding-bottom: 8px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+      
+      <div class="title-block">
+        <h3 class="ocorrencia-natureza" style="margin: 0; font-weight: bold;">
+          {{ ocorrencia.natureza }}
+        </h3>
+        <p class="ocorrencia-protocolo" style="margin: 4px 0 0 0; color: #666;">
+          Protocolo: {{ ocorrencia.protocolo }}
+        </p>
+      </div>
+      
+      <div class="status-badge" [attr.data-status]="ocorrencia.status" style="white-space: nowrap; margin-left: 16px;">
+        <span>{{ ocorrencia.status | titlecase }}</span>
+      </div>
+
+    </div>
+  </ion-card-header>
+
+  <ion-card-content class="card-body-section">
+    
+    <div class="gravidade-container" style="display: flex; align-items: center; gap: 10px; margin-top: 8px; margin-bottom: 8px;">
+      
+      <div class="gravidade-linha" 
+           [style.backgroundColor]="getCorGravidade(ocorrencia.gravidade)"
+           style="flex: 1; height: 8px; border-radius: 4px;">
+      </div>
+      
+      <span class="gravidade-label" style="white-space: nowrap;">
+        {{ ocorrencia.gravidade }}
+      </span>
+
+    </div>
+
+    <div class="info-line local-line" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+      <ion-icon name="pin-outline" aria-hidden="true"></ion-icon>
+      <span class="info-text">{{ ocorrencia.local }}</span>
+    </div>
+
+    <div class="info-line horario-line" style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+      <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+      <span class="info-text">{{ ocorrencia.horario }}</span>
+    </div>
+
+    <ion-button 
+      expand="block" 
+      color="danger" 
+      class="btn-iniciar"
+      (click)="emitirAcao()">
+      Iniciar Atendimento
+    </ion-button>
+  </ion-card-content>
+
+</ion-card>
