@@ -1,0 +1,235 @@
+<app-main-header [showBackButton]="false"></app-main-header>
+
+<ion-content class="evidencias-content">
+  
+  <div class="custom-page-header">
+    <button class="custom-back-btn" (click)="voltar()">
+      <ion-icon name="arrow-back"></ion-icon>
+      <span>Voltar</span>
+    </button>
+    <div class="title-container">
+      <h2>Evidências</h2>
+    </div>
+  </div>
+
+  <div class="scroll-container">
+    
+    <div class="photo-grid">
+      <div class="preview-box" *ngFor="let item of fotosPreview">
+        <span>Preview</span>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="custom-field">
+        <label>Detalhamento Técnico</label>
+        <textarea rows="6" placeholder="Digite aqui..." [(ngModel)]="detalhamentoTecnico"></textarea>
+      </div>
+    </div>
+
+    <div class="form-card">
+      
+      <div class="custom-field">
+        <label>Agentes Extintores</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="agenteExtintor">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="po">Pó Químico Seco</option>
+            <option value="agua">Água</option>
+            <option value="lge">LGE (Líquido Gerador de Espuma)</option>
+            <option value="co2">Co2</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Estabelecimento de Mangueiras</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="mangueiras">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="lances">Lances</option>
+            <option value="esguinchos">Esguinchos</option>
+            <option value="divisores">Divisores</option>
+            <option value="reducoes">Reduções</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Equipamento de Proteção Respiratória</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="protecaoRespiratoria">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="cilindros">Cilindros de Ar Comprimido</option>
+            <option value="mascaras">Mascaras Faciais</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Ferramentas de Arrombamento</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="arrombamento">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="machados">Machados</option>
+            <option value="marretas">Marretas</option>
+            <option value="motodiscos">Motodiscos Ventiladores Térmicos</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Suporte Básico de Vida</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="suporteBasicoVida">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="desfibrilador">Desfibrilador Externo Automático</option>
+            <option value="reanimador">Reanimador Manual</option>
+            <option value="canulas">Cânulas de Guedel</option>
+            <option value="oxigenio">Cilindros de Oxigênio Medicinal</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Imobilização e Transporte</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="transporte">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="prancha">Prancha Rígida</option>
+            <option value="colarCervical">Colar Cervical</option>
+            <option value="talas">Talas Moldáveis</option>
+            <option value="extrator">Extrator de Vítimas</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Curativos e Consumíveis</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="curativosEConsumiveis">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="gazes">Gazes</option>
+            <option value="ataduras">Ataduras de Crepom</option>
+            <option value="fitas">Fitas Adesivas</option>
+            <option value="soro">Soro Fisiológico</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Equipamentos de Dignóstico</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="diagnostico">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="esfignomanometro">Esfignomanômetro</option>
+            <option value="oximetro">Oxímetro de pulso</option>
+            <option value="termometro">Termômetro Digital</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Ferramentas Hidráulicas</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="ferramentasHidraulicas">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="cortador">Cortador</option>
+            <option value="expansor">Expansor</option>
+            <option value="cilindro">Cilindro Extensor</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Iluminação e Energia</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="iluminacaoEnergia">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="torres">Torres de iLuminação Portáteis</option>
+            <option value="geradores">Geradores de Energia a Combustão</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Equipamentos de Superfície</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="superficie">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="botes">Botes infláveis</option>
+            <option value="motores">Motores de Polpa</option>
+            <option value="boias">Boias Circulares</option>
+            <option value="lifebelts">Life-belts</option>
+            <option value="nadadeiras">Nadadeiras</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Mergulho Autônomo</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="mergulho">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="coletes">Coletes Equilibradores</option>
+            <option value="reguladores">Reguladores</option>
+            <option value="mascaras">Máscaras</option>
+            <option value="neoprene">Roupas de Neoprene</option>
+            <option value="computadores">Computadores de Mergulho</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Sistema de Cordas</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="cordas">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="cordas">Cordas Estáticas/Dinâmicas</option>
+            <option value="mosquetoes">Mosquetões</option>
+            <option value="freios">Freios</option>
+            <option value="polias">Polias</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      <div class="custom-field">
+        <label>Segurança</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="seguranca">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="capacetes">Capacetes de Altura</option>
+            <option value="luvas">Luvas de Rapel</option>
+          </select>
+          <ion-icon name="arrow-down"></ion-icon>
+        </div>
+      </div>
+
+      </div>
+  </div>
+
+  <div class="floating-actions" slot="fixed">
+    <div class="action-buttons-wrapper">
+      <button class="btn-camera-float" (click)="abrirCamera()">
+        <ion-icon name="camera-outline"></ion-icon>
+      </button>
+      <button class="btn-avancar-float" routerLink="/conclusao">
+        Avançar para conclusão
+      </button>
+    </div>
+  </div>
+
+</ion-content>
