@@ -1,0 +1,71 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <ion-grid class="login-grid">
+    <ion-row class="ion-justify-content-center ion-align-items-center full-height-row">
+      
+      <ion-col size="12" size-sm="8" size-md="6" size-lg="4" class="login-col">
+        
+        <div class="login-brand">
+          <img src="assets/logo-cbmpe.png" alt="CBMPE Logo" class="login-logo-img">
+          <h1 class="login-title">CBMPE</h1>
+          <p class="login-subtitle">Sistema de Ocorrências</p>
+        </div>
+
+        <div class="login-card">
+          <form (ngSubmit)="onLogin()" class="login-form">
+            
+            <div class="form-group">
+              <label class="custom-label">Matrícula Militar</label>
+              <div class="input-box">
+                <ion-input
+                  type="text"
+                  required
+                  [(ngModel)]="matricula"
+                  name="matricula"
+                  placeholder="Digite sua matrícula">
+                </ion-input>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="custom-label">Senha</label>
+              <div class="input-box">
+                <ion-input
+                  type="password"
+                  required
+                  [(ngModel)]="senha"
+                  name="senha"
+                  placeholder="Digite sua Senha">
+                </ion-input>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="custom-label">Unidade</label>
+              <div class="input-box">
+                <ion-select
+                  [(ngModel)]="unidade"
+                  name="unidade"
+                  interface="popover"
+                  placeholder="Selecione sua unidade">
+                  <ion-select-option value="unidade-1">Unidade 1</ion-select-option>
+                  <ion-select-option value="unidade-2">Unidade 2</ion-select-option>
+                  <ion-select-option value="unidade-3">Unidade 3</ion-select-option>
+                </ion-select>
+              </div>
+            </div>
+
+            <div class="login-actions">
+              <ion-button expand="block" type="submit" class="enter-button">Entrar</ion-button>
+              <ion-button expand="block" fill="outline" type="button" class="admin-button" (click)="onAdmin()">
+                Painel Administrativo
+              </ion-button>
+            </div>
+
+            <div *ngIf="message" class="login-message">{{ message }}</div>
+          </form>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
