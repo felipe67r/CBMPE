@@ -1,7 +1,0 @@
-{
-  "name": "cbmpe-app",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
