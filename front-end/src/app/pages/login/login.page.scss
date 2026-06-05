@@ -1,100 +1,147 @@
-$amarelo-logo: #fff212;
-$azul-logo: #3e4095;
 $vermelho-logo: #ed3237;
-$cinza-cbmpe: #717878;
 
 .login-content {
-  --background: #f5f5f5;
+  // Cor de fundo cinza clara do Figma
+  --background: #e9ecef !important; 
+}
+
+// Estica o grid para ocupar 100% da altura da janela do navegador
+.login-grid {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.full-height-row {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.login-col {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 24px !important;
 }
 
-.login-wrapper {
-  width: 100%;
-  max-width: 360px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+// Estilização do topo (Logo e Textos)
 .login-brand {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .login-logo-img {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 12px;
+    object-fit: contain;
+  }
+
+  .login-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+  }
+
+  .login-subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1c1c1c;
+    margin-top: 4px;
+    margin-bottom: 0;
+  }
 }
 
-.login-logo-img {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 16px;
-  object-fit: contain;
-}
-
-.login-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: $azul-logo;
-  margin: 0;
-  margin-bottom: 4px;
-}
-
-.login-subtitle {
-  font-size: 14px;
-  color: #666;
-  margin: 0;
+// O Card Branco Flutuante do Figma
+.login-card {
+  width: 100%;
+  background: #f4f5f7;
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .login-form {
   width: 100%;
 }
 
-.login-item {
-  --padding-start: 0;
-  --padding-end: 0;
+// Estrutura de espaçamento de cada campo
+.form-group {
   margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-  ion-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
+// Rótulos de texto visíveis e organizados
+.custom-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6c757d;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+// O retângulo branco interno de cada input do Figma
+.input-box {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  padding: 0 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+
+  ion-input, ion-select {
+    font-size: 14px;
+    color: #333333;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
   }
 
-  ion-input,
   ion-select {
-    font-size: 14px;
-    padding: 12px 0;
+    width: 100%;
+    max-width: 100%;
   }
 }
 
+// Botões de Ação
 .login-actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 32px;
+  gap: 14px;
+  margin-top: 28px;
 }
 
+// Botão Entrar Vermelho do Figma
 .enter-button {
-  --background: $vermelho-logo;
-  --background-hover: #cc2830;
-  --color: white;
-  font-weight: 600;
-  height: 48px;
-  font-size: 16px;
+  --background: #cc0000;
+  --background-hover: #b30000;
+  --background-activated: #990000;
+  --color: #ffffff;
+  --border-radius: 12px;
+  font-weight: 700;
+  height: 52px;
+  font-size: 20px;
+  margin: 0;
 }
 
+// Botão do Painel Administrativo
 .admin-button {
-  --background: transparent;
-  --border-color: #ddd;
-  --color: #666;
-  font-weight: 600;
-  height: 48px;
-  font-size: 16px;
+  --background: #ffffff;
+  --background-hover: #f8f9fa;
+  --border-color: #ced4da;
+  --border-style: solid;
+  --border-width: 1px;
+  --border-radius: 10px;
+  --color: #333333;
+  font-weight: 500;
+  height: 44px;
+  font-size: 13px;
+  margin: 0;
 }
 
 .login-message {

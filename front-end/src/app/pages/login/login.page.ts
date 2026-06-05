@@ -7,10 +7,11 @@ import {
   IonButton,
   IonContent,
   IonInput,
-  IonItem,
-  IonLabel,
   IonSelect,
-  IonSelectOption
+  IonSelectOption,
+  IonGrid,  // <-- ADICIONADO PARA RESPONSIVIDADE
+  IonRow,   // <-- ADICIONADO PARA RESPONSIVIDADE
+  IonCol    // <-- ADICIONADO PARA RESPONSIVIDADE
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -21,11 +22,12 @@ import {
   imports: [
     IonContent,
     IonButton,
-    IonItem,
-    IonLabel,
     IonInput,
     IonSelect,
     IonSelectOption,
+    IonGrid,  // <-- ADICIONADO NA LISTA DE IMPORTS DO COMPONENTE
+    IonRow,   // <-- ADICIONADO NA LISTA DE IMPORTS DO COMPONENTE
+    IonCol,   // <-- ADICIONADO NA LISTA DE IMPORTS DO COMPONENTE
     CommonModule,
     FormsModule
   ]
