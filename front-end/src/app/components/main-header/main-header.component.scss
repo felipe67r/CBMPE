@@ -1,0 +1,25 @@
+ion-toolbar {
+  --min-height: 85px;
+
+  /* Modifica diretamente a div interna oculta do Ionic, forçando o alinhamento central */
+  &::part(container) {
+    display: flex;
+    align-items: center !important; 
+  }
+}
+
+/* Força os blocos de botões das pontas a ocuparem 100% da altura e centralizarem seu conteúdo */
+.custom-toolbar-buttons {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Garante que o título do meio também se auto-centralize verticalmente */
+.custom-title-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  justify-content: center;
+  height: 100%;
+}
