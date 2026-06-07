@@ -1,10 +1,11 @@
-// src/routes/ocorrenciaRoutes.js
-const express = require('express');
+import express from 'express';
+import { salvarTriagem, salvarEvidencias, salvarConclusao, listarOcorrencias } from '../controllers/ocorrenciaController.js';
+
 const router = express.Router();
-const ocorrenciaController = require('../controllers/ocorrenciaController');
 
-// Define as rotas de ocorrências
-router.get('/', ocorrenciaController.listarPorUnidade);
-router.put('/:protocolo', ocorrenciaController.concluirOcorrencia);
+router.get('/dashboard', listarOcorrencias);
+router.post('/triagem', salvarTriagem);
+router.post('/evidencias', salvarEvidencias);
+router.post('/conclusao', salvarConclusao);
 
-module.exports = router;
+export default router;

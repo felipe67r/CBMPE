@@ -2,18 +2,19 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener }
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
 
 import { addIcons } from 'ionicons';
 import { arrowBack } from 'ionicons/icons';
+import { OcorrenciaService } from 'src/app/services/ocorrencia';
 
 @Component({
   selector: 'app-conclusao',
   templateUrl: './conclusao.page.html',
   styleUrls: ['./conclusao.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, MainHeaderComponent, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule, MainHeaderComponent ]
 })
 export class ConclusaoPage implements OnInit, AfterViewInit {
   
@@ -24,7 +25,11 @@ export class ConclusaoPage implements OnInit, AfterViewInit {
   
   isCanvasEmpty = true;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController,
+    private service: OcorrenciaService,
+    private router: Router
+
+  ) {
     addIcons({ arrowBack });
   }
 
@@ -113,7 +118,25 @@ export class ConclusaoPage implements OnInit, AfterViewInit {
   }
 
   finalizarESincronizar() {
-    const signatureImgBase64 = this.canvasRef.nativeElement.toDataURL();
-    console.log('Assinatura salva com sucesso em Base64!', signatureImgBase64);
+    const canvasElement = this.canvasRef.nativeElement;
+    const dataUrl = canvasElement.toDataURL('image/png');
+
+    // Enviando os dados para o back-end
+    this.service.salvarConclusao({ assinatura: dataUrl }).subscribe({
+      next: (res) => {
+        console.log('Finalizado com sucesso!', res);
+        
+        // 1. Limpa o ID para não reutilizar a mesma ocorrência
+        this.service.ocorrenciaId = null; 
+        
+        // 2. Redireciona para o dashboard
+        this.router.navigate(['/dashboard']); 
+      },
+      error: (err) => {
+        console.error('Erro ao salvar no servidor', err);
+        // Opcional: mostrar um alerta de erro para o usuário
+      }
+    });
   }
+
 }
