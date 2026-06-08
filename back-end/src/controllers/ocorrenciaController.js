@@ -1,11 +1,18 @@
 import { db } from "../models/data.js";
 
+// Função utilitária para gerar o próximo protocolo (001, 002, 003...)
+const gerarProtocolo = () => {
+  const proximoId = db.ocorrencias.length + 1;
+  return proximoId.toString().padStart(3, '0');
+};
+
 // 1. Etapa de Triagem
 export const salvarTriagem = (req, res) => {
   const { tipo, gravidade, temVitimas, quantidadeVitimas, riscos, statusLocal, gps } = req.body;
 
   const novaOcorrencia = {
-    id: Date.now(), // ID gerado para vincular as etapas
+    id: Date.now(), 
+    protocolo: gerarProtocolo(), // Gera o 003, 004, etc.
     triagem: {
       tipo,
       gravidade,
@@ -15,16 +22,20 @@ export const salvarTriagem = (req, res) => {
       statusLocal,
       gps
     },
-    evidencias: null, // Será preenchido na etapa 2
-    assinatura: null, // Será preenchido na etapa 3
+    evidencias: null, 
+    assinatura: null, 
     status: 'em_andamento',
     dataCriacao: new Date()
   };
 
   db.ocorrencias.push(novaOcorrencia);
   
-  console.log('Triagem criada:', novaOcorrencia.id);
-  return res.status(201).json({ mensagem: 'Triagem salva!', id: novaOcorrencia.id });
+  console.log('Triagem criada, Protocolo:', novaOcorrencia.protocolo);
+  return res.status(201).json({ 
+    mensagem: 'Triagem salva!', 
+    id: novaOcorrencia.id,
+    protocolo: novaOcorrencia.protocolo 
+  });
 };
 
 // 2. Etapa de Evidências
@@ -73,7 +84,7 @@ export const salvarConclusao = (req, res) => {
   ocorrencia.status = 'finalizado';
   ocorrencia.dataConclusao = new Date();
 
-  console.log('Ocorrência finalizada:', id);
+  console.log('Ocorrência finalizada, Protocolo:', ocorrencia.protocolo);
   
   return res.status(200).json({ 
     mensagem: 'Ocorrência concluída com sucesso!', 
@@ -81,26 +92,27 @@ export const salvarConclusao = (req, res) => {
   });
 };
 
+// Inicialização de dados de teste (caso o banco esteja vazio)
 if (db.ocorrencias.length === 0) {
   db.ocorrencias.push(
     {
       id: 1,
-      triagem: { tipo: 'Incêndio', gravidade: 'Alta', statusLocal: 'Não controlado' },
       protocolo: '001',
+      triagem: { tipo: 'Incêndio', gravidade: 'Alta', statusLocal: 'Não controlado' },
       status: 'Despachado',
       dataCriacao: new Date()
     },
     {
       id: 2,
-      triagem: { tipo: 'Acidente', gravidade: 'Média', statusLocal: 'Controlado' },
       protocolo: '002',
+      triagem: { tipo: 'Acidente', gravidade: 'Média', statusLocal: 'Controlado' },
       status: 'Despachado',
       dataCriacao: new Date()
     }
   );
 }
 
+// Listagem Geral
 export const listarOcorrencias = (req, res) => {
-  // Retorna todas as ocorrências salvas no seu banco em memória
   return res.status(200).json(db.ocorrencias);
 };

@@ -41,11 +41,12 @@ export class TriagemPage implements OnInit {
   setVitima(estado: string) { this.vitimaSelecionada = estado; }
 
   async finalizarTriagem() {
-  const dados = { tipo: 'incendio', gravidade: this.gravidadeSelecionada /* ... */ };
-  this.service.salvarTriagem(dados).subscribe((res: any) => {
-    this.service.ocorrenciaId = res.id; // Guarda o ID para as próximas telas
-    this.router.navigate(['/evidencias']);
-  });
-}
+      const dados = { tipo: 'incendio', gravidade: this.gravidadeSelecionada /* ... */ };
+      this.service.salvarTriagem(dados).subscribe((res: any) => {
+      // AQUI está o erro: o service não tem 'ocorrenciaId', tem 'ocorrenciaIdAtiva'
+      this.service.ocorrenciaIdAtiva = res.id; 
+      this.router.navigate(['/evidencias']);
+    });
+  }
 
 }

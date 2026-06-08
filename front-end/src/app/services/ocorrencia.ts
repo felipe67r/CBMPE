@@ -1,37 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-// Adicione esta interface (ou importe de um arquivo de models)
-export interface Ocorrencia {
-  id: number;
-  natureza: string;
-  status: string;
-  gravidade: string;
-  // ... adicione outros campos conforme necessário
-}
+import { Ocorrencia } from '../models/ocorrencia.models'; // Importe do seu arquivo de models
 
 @Injectable({ providedIn: 'root' })
 export class OcorrenciaService {
   private apiUrl = 'http://localhost:3000/api';
-  public ocorrenciaId: any = null;
+  
+  // Guardião do estado do fluxo
+  public ocorrenciaIdAtiva: number | null = null;
 
   constructor(private http: HttpClient) {}
 
+  // Listagem
+  obterOcorrencias(): Observable<Ocorrencia[]> {
+    return this.http.get<Ocorrencia[]>(`${this.apiUrl}/dashboard`);
+  }
+
+  // Triagem: cria e retorna o ID para o componente salvar no serviço
   salvarTriagem(dados: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/triagem`, dados);
   }
 
+  // Evidências: usa automaticamente o ID armazenado
   salvarEvidencias(dados: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/evidencias`, { id: this.ocorrenciaId, ...dados });
+    if (!this.ocorrenciaIdAtiva) throw new Error("Nenhuma ocorrência ativa encontrada.");
+    return this.http.post(`${this.apiUrl}/evidencias`, { id: this.ocorrenciaIdAtiva, ...dados });
   }
 
+  // Conclusão: usa automaticamente o ID armazenado
   salvarConclusao(dados: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/conclusao`, { id: this.ocorrenciaId, ...dados });
-  }
-
-  // CORREÇÃO: O retorno deve ser o array da interface Ocorrencia
-  obterOcorrencias(): Observable<Ocorrencia[]> {
-    return this.http.get<Ocorrencia[]>(`${this.apiUrl}/dashboard`);
+    if (!this.ocorrenciaIdAtiva) throw new Error("Nenhuma ocorrência ativa encontrada.");
+    return this.http.post(`${this.apiUrl}/conclusao`, { id: this.ocorrenciaIdAtiva, ...dados });
   }
 }

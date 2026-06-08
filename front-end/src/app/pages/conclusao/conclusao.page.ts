@@ -121,20 +121,25 @@ export class ConclusaoPage implements OnInit, AfterViewInit {
     const canvasElement = this.canvasRef.nativeElement;
     const dataUrl = canvasElement.toDataURL('image/png');
 
-    // Enviando os dados para o back-end
+    // Verifica se temos um ID antes de tentar enviar
+    if (!this.service.ocorrenciaIdAtiva) {
+      console.error('Nenhuma ocorrência selecionada!');
+      return;
+    }
+
+    // O seu serviço já pega o ID de 'ocorrenciaIdAtiva' automaticamente 
+    // se você ajustou o método conforme conversamos antes.
     this.service.salvarConclusao({ assinatura: dataUrl }).subscribe({
       next: (res) => {
         console.log('Finalizado com sucesso!', res);
         
-        // 1. Limpa o ID para não reutilizar a mesma ocorrência
-        this.service.ocorrenciaId = null; 
+        // Limpa o ID após concluir
+        this.service.ocorrenciaIdAtiva = null; 
         
-        // 2. Redireciona para o dashboard
         this.router.navigate(['/dashboard']); 
       },
       error: (err) => {
         console.error('Erro ao salvar no servidor', err);
-        // Opcional: mostrar um alerta de erro para o usuário
       }
     });
   }
