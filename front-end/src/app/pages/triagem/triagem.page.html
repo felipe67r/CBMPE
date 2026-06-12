@@ -96,12 +96,16 @@
     </div>
     
     <div class="gps-display">
-      <span class="gps-title">Coordenadas Capturadas</span>
-      <span class="gps-coord">Latitude: -</span>
-      <span class="gps-coord">Longitude: -</span>
+      <span class="gps-title" *ngIf="!carregandoGps">Coordenadas Capturadas</span>
+      <span class="gps-title" *ngIf="carregandoGps" style="color: #ed3237; font-weight: bold;">Capturando localização operacional...</span>
+      
+      <span class="gps-coord">Latitude: {{ latitude ? latitude : '-' }}</span>
+      <span class="gps-coord">Longitude: {{ longitude ? longitude : '-' }}</span>
     </div>
 
-    <button class="btn-white">Recapturar GPS</button>
+    <button class="btn-white" (click)="capturarLocalizacao()" [disabled]="carregandoGps">
+      {{ carregandoGps ? 'Aguardando Sinal...' : 'Recapturar GPS' }}
+    </button>
   </div>
 
   <div class="footer-action">
