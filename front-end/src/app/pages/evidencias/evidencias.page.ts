@@ -5,7 +5,8 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
 import { addIcons } from 'ionicons';
-import { arrowBack, arrowDown, cameraOutline } from 'ionicons/icons';
+import { arrowBack, arrowDown, cameraOutline, trashOutline } from 'ionicons/icons'; 
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
 
 @Component({
   selector: 'app-evidencias',
@@ -15,7 +16,8 @@ import { arrowBack, arrowDown, cameraOutline } from 'ionicons/icons';
   imports: [IonicModule, CommonModule, FormsModule, MainHeaderComponent, RouterLink]
 })
 export class EvidenciasPage implements OnInit {
-  fotosPreview: number[] = [1, 2, 3, 4, 5, 6];
+  fotosPreview: string[] = [];
+  
   detalhamentoTecnico: string = '';
   agenteExtintor: string = '';
   mangueiras: string = '';
@@ -33,7 +35,7 @@ export class EvidenciasPage implements OnInit {
   seguranca: string = '';
 
   constructor(private navCtrl: NavController) {
-    addIcons({ arrowBack, arrowDown, cameraOutline });
+    addIcons({ arrowBack, arrowDown, cameraOutline, trashOutline });
   }
 
   ngOnInit() {}
@@ -42,8 +44,24 @@ export class EvidenciasPage implements OnInit {
     this.navCtrl.back();
   }
 
-  abrirCamera() {
-    // Lógica do Capacitor Camera Plugin
-    console.log('Câmera acionada!');
+  async abrirCamera() {
+    try {
+      const imagemCapturada = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl, 
+        source: CameraSource.Camera 
+      });
+
+      if (imagemCapturada && imagemCapturada.dataUrl) {
+        this.fotosPreview.unshift(imagemCapturada.dataUrl);
+      }
+    } catch (erro) {
+      console.warn('Usuário fechou a câmera ou permissão foi negada:', erro);
+    }
+  }
+
+  removerFoto(index: number) {
+    this.fotosPreview.splice(index, 1);
   }
 }

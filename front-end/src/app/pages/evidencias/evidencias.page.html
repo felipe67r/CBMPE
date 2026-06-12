@@ -14,9 +14,17 @@
 
   <div class="scroll-container">
     
-    <div class="photo-grid">
-      <div class="preview-box" *ngFor="let item of fotosPreview">
-        <span>Preview</span>
+    <div class="empty-photo-state" *ngIf="fotosPreview.length === 0">
+      <p>Nenhuma foto registrada para esta ocorrência.</p>
+      <span>Utilize o botão da câmera abaixo para capturar evidências de campo.</span>
+    </div>
+
+    <div class="photo-grid" *ngIf="fotosPreview.length > 0">
+      <div class="preview-box real-image" *ngFor="let foto of fotosPreview; let i = index">
+        <img [src]="foto" alt="Evidência CBMPE" />
+        <button class="btn-delete-photo" (click)="removerFoto(i)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </button>
       </div>
     </div>
 
@@ -125,7 +133,7 @@
       </div>
 
       <div class="custom-field">
-        <label>Equipamentos de Dignóstico</label>
+        <label>Equipamentos de Diagnóstico</label>
         <div class="select-wrapper">
           <select [(ngModel)]="diagnostico">
             <option value="" disabled selected>Selecione...</option>
@@ -218,7 +226,7 @@
         </div>
       </div>
 
-      </div>
+    </div>
   </div>
 
   <div class="floating-actions" slot="fixed">
