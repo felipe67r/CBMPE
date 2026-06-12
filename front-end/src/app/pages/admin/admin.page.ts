@@ -2,20 +2,28 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { IonContent, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonSelect, IonSelectOption, IonItem } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   locationOutline, timeOutline, menuOutline, chevronBackOutline,
-  closeOutline, downloadOutline, documentTextOutline, listOutline
+  closeOutline, downloadOutline, documentTextOutline, listOutline,
+  pieChartOutline, barChartOutline, mapOutline
 } from 'ionicons/icons';
 import * as L from 'leaflet';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.page.html',
   styleUrls: ['./admin.page.scss'],
   standalone: true,
-  imports: [IonContent, IonIcon, CommonModule, FormsModule]
+  imports: [
+    IonContent, IonIcon, IonSelect, IonSelectOption, IonItem, 
+    CommonModule, FormsModule, BaseChartDirective
+  ]
 })
 export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
 
@@ -23,6 +31,11 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
   sidebarAtiva: boolean = true;
   private map!: L.Map;
   private apiUrl = 'http://localhost:3000/ocorrencias';
+
+  visaoAtual: 'mapa' | 'natureza' | 'tempo' = 'mapa';
+
+  cidadeSelecionada: string = 'Recife';
+  periodoSelecionado: string = 'meses';
 
   // Logs
   mostrarLogs = false;
@@ -32,10 +45,57 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
   mostrarModalPDF = false;
   ocorrenciaPDF: any = null;
 
+    public pieChartType: ChartType = 'pie';
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { 
+        position: 'bottom',
+        labels: { boxWidth: 12, font: { size: 12 } }
+      }
+    }
+  };
+  
+  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+    labels: ['Incêndio', 'Afogamento', 'Acidente de Trânsito', 'Salvamento Animal', 'Outros'],
+    datasets: [{
+      // Dados iniciais correspondentes à cidade padrão (Recife)
+      data: [35, 10, 30, 15, 10],
+      backgroundColor: ['#ed3237', '#1E88E5', '#FFB300', '#43A047', '#757575']
+    }]
+  };
+
+  public barChartType: ChartType = 'bar';
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      x: {
+        title: { display: true, text: 'Minutos Médios de Deslocamento', font: { weight: 'bold' } },
+        suggestedMax: 25
+      }
+    }
+  };
+
+  public barChartData: ChartData<'bar'> = {
+    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+    datasets: [{
+      data: [12, 14, 11, 15, 9, 10],
+      label: 'Tempo Médio (min)',
+      backgroundColor: '#ed3237'
+    }]
+  };
+
   constructor(private http: HttpClient) {
     addIcons({
       locationOutline, timeOutline, menuOutline, chevronBackOutline,
-      closeOutline, downloadOutline, documentTextOutline, listOutline
+      closeOutline, downloadOutline, documentTextOutline, listOutline,
+      pieChartOutline, barChartOutline, mapOutline
     });
   }
 
@@ -52,6 +112,9 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
 
   inicializarMapa() {
     setTimeout(() => {
+      const mapContainer = document.getElementById('map');
+      if (!mapContainer) return;
+
       this.map = L.map('map', {
         center: [-8.05428, -34.8813],
         zoom: 12,
@@ -77,7 +140,58 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
 
   toggleSidebar() {
     this.sidebarAtiva = !this.sidebarAtiva;
-    setTimeout(() => { if (this.map) this.map.invalidateSize(); }, 320);
+    setTimeout(() => { if (this.map && this.visaoAtual === 'mapa') this.map.invalidateSize(); }, 320);
+  }
+
+  // ─── CONTROLE DOS GRÁFICOS ───────────────────────────────────────────────
+
+  openChart(tipo: 'natureza' | 'tempo') {
+    this.visaoAtual = tipo;
+    this.adicionarLog('info', `Visualização mudou para Gráfico de ${tipo}.`);
+  }
+
+  voltarAoMapa() {
+    this.visaoAtual = 'mapa';
+    this.adicionarLog('info', 'Visualização retornou para o Mapa Operacional.');
+    setTimeout(() => {
+      if (!this.map) {
+        this.inicializarMapa();
+      } else {
+        this.map.invalidateSize();
+      }
+    }, 50);
+  }
+
+  atualizarGraficoNatureza() {
+    this.adicionarLog('info', `Filtro de Município alterado para: ${this.cidadeSelecionada}`);
+    
+    if (this.cidadeSelecionada === 'Recife') {
+      this.pieChartData.datasets[0].data = [35, 10, 30, 15, 10]; // Perfil comercial/urbano alto
+    } else if (this.cidadeSelecionada === 'Jaboatão') {
+      this.pieChartData.datasets[0].data = [20, 25, 25, 20, 10]; // Equilíbrio estrutural
+    } else if (this.cidadeSelecionada === 'Olinda') {
+      this.pieChartData.datasets[0].data = [15, 40, 20, 15, 10]; // Alto índice de Afogamento (Orla)
+    } else if (this.cidadeSelecionada === 'Paulista') {
+      this.pieChartData.datasets[0].data = [25, 15, 20, 30, 10]; // Alto índice de Salvamento Animal/Florestal
+    } else if (this.cidadeSelecionada === 'Cabo') {
+      this.pieChartData.datasets[0].data = [30, 20, 15, 15, 20]; // Área industrial e praias
+    } else if (this.cidadeSelecionada === 'Igarassu') {
+      this.pieChartData.datasets[0].data = [40, 5, 25, 20, 10];  // Perfil rodoviário/incêndio em vegetação
+    }
+    
+    this.pieChartData = { ...this.pieChartData };
+  }
+
+  atualizarGraficoTempo() {
+    this.adicionarLog('info', `Filtro de Período alterado para: ${this.periodoSelecionado}`);
+    if (this.periodoSelecionado === 'anos') {
+      this.barChartData.labels = ['2023', '2024', '2025', '2026'];
+      this.barChartData.datasets[0].data = [16, 14, 12, 9];
+    } else {
+      this.barChartData.labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+      this.barChartData.datasets[0].data = [12, 14, 11, 15, 9, 10];
+    }
+    this.barChartData = { ...this.barChartData }; 
   }
 
   // ─── OCORRÊNCIAS ─────────────────────────────────────────────────────────
@@ -91,10 +205,10 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
       error: (erro) => {
         this.adicionarLog('aviso', 'Servidor indisponível. Usando dados locais de demonstração.');
         this.ocorrencias = [
-          { protocolo: '801', natureza: 'Incêndio Residencial', status: 'Concluído', prioridade: 'Alta', endereco: 'Rua da Aurora, 123 - Boa Vista', horario: '19:14' },
-          { protocolo: '802', natureza: 'Acidente de Trânsito', status: 'Concluído', prioridade: 'Média', endereco: 'Av. Boa Viagem, 987 - Pina', horario: '03:00' },
-          { protocolo: '803', natureza: 'Salvamento em Altura', status: 'Atendido', prioridade: 'Alta', endereco: 'Ed. Empresarial, Centro', horario: '11:30' },
-          { protocolo: '804', natureza: 'Vazamento de Gás', status: 'Despachado', prioridade: 'Baixa', endereco: 'Rua Real da Torre, 45 - Madalena', horario: '08:05' }
+          { protocolo: '801', natureza: 'Incêndio Residencial', status: 'Concluído', prioridade: 'Alta', endereco: 'Rua da Aurora, 123 - Recife', horario: '19:14' },
+          { protocolo: '802', natureza: 'Acidente de Trânsito', status: 'Concluído', prioridade: 'Média', endereco: 'Av. Boa Viagem, 987 - Recife', horario: '03:00' },
+          { protocolo: '803', natureza: 'Salvamento em Altura', status: 'Atendido', prioridade: 'Alta', endereco: 'Ed. Empresarial - Jaboatão dos Guararapes', horario: '11:30' },
+          { protocolo: '804', natureza: 'Vazamento de Gás', status: 'Despachado', prioridade: 'Baixa', endereco: 'Rua Real da Torre, 45 - Olinda', horario: '08:05' }
         ];
       }
     });
@@ -151,7 +265,6 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
             <p>Corpo de Bombeiros Militar de Pernambuco — Gerado em ${agora}</p>
           </div>
         </div>
-
         <div class="section-title">Identificação</div>
         <table>
           <tr><th>Campo</th><th>Valor</th></tr>
@@ -162,7 +275,6 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
           <tr><td>Endereço</td><td>${occ.endereco ?? occ.local ?? '—'}</td></tr>
           <tr><td>Horário</td><td>${occ.horario ?? occ.horaPedido ?? '—'}</td></tr>
         </table>
-
         <div class="footer">
           Documento gerado automaticamente pelo sistema CBMPE · Protocolo ${occ.protocolo}
         </div>
@@ -185,7 +297,7 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
 
   exportarCSV() {
     const cabecalho = ['Protocolo', 'Natureza', 'Status', 'Prioridade', 'Endereço', 'Horário'];
-    const linhas = this.ocorrencias.map(o => [
+    const lines = this.ocorrencias.map(o => [
       o.protocolo ?? '',
       o.natureza ?? '',
       o.status ?? o.estado ?? '',
@@ -194,7 +306,7 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
       o.horario ?? o.horaPedido ?? ''
     ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','));
 
-    const csv = [cabecalho.join(','), ...linhas].join('\r\n');
+    const csv = [cabecalho.join(','), ...lines].join('\r\n');
     const bom = '\uFEFF';
     const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
     this.downloadArquivo(blob, `ocorrencias_cbmpe_${this.dataHoje()}.csv`);
@@ -203,7 +315,7 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
 
   exportarExcel() {
     const cabecalho = ['Protocolo', 'Natureza', 'Status', 'Prioridade', 'Endereço', 'Horário'];
-    const linhas = this.ocorrencias.map(o => [
+    const lines = this.ocorrencias.map(o => [
       o.protocolo ?? '',
       o.natureza ?? '',
       o.status ?? o.estado ?? '',
@@ -212,25 +324,18 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
       o.horario ?? o.horaPedido ?? ''
     ]);
 
-    // Gera XML Excel (formato .xls compatível, abre no Excel/LibreOffice sem dependências)
     const estiloHeader = 'background:#000000;color:#ffffff;font-weight:bold;padding:6px 10px;';
     const estiloCelula = 'padding:6px 10px;border:1px solid #e0e0e0;';
 
-    const linhasHTML = linhas.map((row, i) =>
+    const linhasHTML = lines.map((row, i) =>
       `<tr style="background:${i % 2 === 0 ? '#ffffff' : '#f9f9f9'}">` +
       row.map(v => `<td style="${estiloCelula}">${v}</td>`).join('') +
       '</tr>'
     ).join('');
 
     const html = `
-      <html xmlns:o="urn:schemas-microsoft-com:office:office"
-            xmlns:x="urn:schemas-microsoft-com:office:excel"
-            xmlns="http://www.w3.org/TR/REC-html40">
+      <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
       <head><meta charset="UTF-8">
-      <!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets>
-      <x:ExcelWorksheet><x:Name>Ocorrências</x:Name>
-      <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
-      </x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
       </head><body>
       <table>
         <thead><tr>${cabecalho.map(c => `<th style="${estiloHeader}">${c}</th>`).join('')}</tr></thead>
@@ -258,13 +363,8 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
 
   // ─── LOGS ────────────────────────────────────────────────────────────────
 
-  abrirLogs() {
-    this.mostrarLogs = true;
-  }
-
-  fecharLogs() {
-    this.mostrarLogs = false;
-  }
+  abrirLogs() { this.mostrarLogs = true; }
+  fecharLogs() { this.mostrarLogs = false; }
 
   adicionarLog(tipo: 'info' | 'aviso' | 'erro', mensagem: string) {
     this.logs.unshift({
@@ -272,18 +372,12 @@ export class AdminPage implements OnInit, AfterViewInit, OnDestroy {
       tipo,
       mensagem
     });
-    // Mantém no máximo 100 entradas
     if (this.logs.length > 100) this.logs.pop();
   }
 
   limparLogs() {
     this.logs = [];
     this.adicionarLog('info', 'Histórico de logs limpo pelo administrador.');
-  }
-
-  openChart(tipo: string) {
-    this.adicionarLog('info', `Gráfico de "${tipo}" solicitado.`);
-    console.log('Gráfico:', tipo);
   }
 
   ngOnDestroy() {

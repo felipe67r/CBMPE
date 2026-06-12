@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener }
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
-import { RouterLink } from '@angular/router';
 import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
 
 import { addIcons } from 'ionicons';
@@ -13,7 +12,7 @@ import { arrowBack } from 'ionicons/icons';
   templateUrl: './conclusao.page.html',
   styleUrls: ['./conclusao.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, MainHeaderComponent, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule, MainHeaderComponent]
 })
 export class ConclusaoPage implements OnInit, AfterViewInit {
   
