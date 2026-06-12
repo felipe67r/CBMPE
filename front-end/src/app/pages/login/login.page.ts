@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http'; // <-- IMPORTA O HTTP CLIENT
+import { HttpClient } from '@angular/common/http'; 
 import {
   IonButton,
   IonContent,
   IonInput,
   IonSelect,
   IonSelectOption,
-  IonGrid,  // <-- ADICIONADO PARA RESPONSIVIDADE
-  IonRow,   // <-- ADICIONADO PARA RESPONSIVIDADE
-  IonCol    // <-- ADICIONADO PARA RESPONSIVIDADE
+  IonGrid,  
+  IonRow,   
+  IonCol    
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -25,9 +25,9 @@ import {
     IonInput,
     IonSelect,
     IonSelectOption,
-    IonGrid,  // <-- ADICIONADO NA LISTA DE IMPORTS DO COMPONENTE
-    IonRow,   // <-- ADICIONADO NA LISTA DE IMPORTS DO COMPONENTE
-    IonCol,   // <-- ADICIONADO NA LISTA DE IMPORTS DO COMPONENTE
+    IonGrid,  
+    IonRow,   
+    IonCol,   
     CommonModule,
     FormsModule
   ]
@@ -38,10 +38,8 @@ export class LoginPage {
   unidade = '';
   message = '';
 
-  // URL do seu back-end Node.js
   private apiUrl = 'http://localhost:3000/login'; 
 
-  // Injeta o HttpClient aqui no construtor
   constructor(private router: Router, private http: HttpClient) {}
 
   onLogin() {
@@ -52,36 +50,23 @@ export class LoginPage {
       return;
     }
 
-    // Dados que o formulário vai enviar para o Node.js
-    const dadosLogin = {
-      matricula: this.matricula,
-      senha: this.senha,
-      unidade: this.unidade
-    };
+    if (!this.unidade) {
+      this.message = 'Selecione uma unidade operacional.';
+      return;
+    }
 
-    // Fazendo a requisição POST para o Back-end
-    this.http.post<any>(this.apiUrl, dadosLogin).subscribe({
-      next: (resposta) => {
-        // Se o back-end responder com sucesso, redireciona
-        console.log('Login bem sucedido:', resposta);
-        this.router.navigate(['/dashboard']);
-      },
-      error: (erro) => {
-        // Se o back-end der erro (ex: senha errada), mostra a mensagem na tela
-        console.error('Erro no login:', erro);
-        this.message = erro.error?.mensagem || 'Usuário ou senha incorretos.';
-      }
-    });
+    console.log('Login simulado com sucesso na unidade:', this.unidade);
+    this.router.navigate(['/dashboard']);
   }
 
   onAdmin() {
     this.message = '';
+    
     if (!this.matricula.trim()) {
-      this.message = 'Informe matrícula para acessar o painel administrativo.';
+      this.message = 'Informe uma matrícula para acessar o painel administrativo.';
       return;
     }
 
-    // Se seu painel admin também precisar do back-end, faria algo similar aqui.
     this.router.navigate(['/admin']);
   }
 }
