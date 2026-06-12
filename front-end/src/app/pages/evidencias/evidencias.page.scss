@@ -38,6 +38,7 @@
   padding-bottom: 140px; 
 }
 
+<<<<<<< HEAD
 .empty-photo-state {
   background: #d4d4d4;
   border: 2px dashed #999999;
@@ -59,6 +60,8 @@
   }
 }
 
+=======
+>>>>>>> master
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -72,14 +75,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
     position: relative; 
     overflow: hidden;  
+=======
+>>>>>>> master
     
     span {
       color: #999999;
       font-size: 0.9rem;
       font-weight: 600;
     }
+<<<<<<< HEAD
 
     img {
       width: 100%;
@@ -108,6 +115,8 @@
         color: #ffffff;
       }
     }
+=======
+>>>>>>> master
   }
 }
 

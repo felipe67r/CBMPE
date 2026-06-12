@@ -2,17 +2,29 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener }
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
+<<<<<<< HEAD
+=======
+import { Router } from '@angular/router';
+>>>>>>> master
 import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
 
 import { addIcons } from 'ionicons';
 import { arrowBack } from 'ionicons/icons';
+<<<<<<< HEAD
+=======
+import { OcorrenciaService } from 'src/app/services/ocorrencia';
+>>>>>>> master
 
 @Component({
   selector: 'app-conclusao',
   templateUrl: './conclusao.page.html',
   styleUrls: ['./conclusao.page.scss'],
   standalone: true,
+<<<<<<< HEAD
   imports: [IonicModule, CommonModule, FormsModule, MainHeaderComponent]
+=======
+  imports: [IonicModule, CommonModule, FormsModule, MainHeaderComponent ]
+>>>>>>> master
 })
 export class ConclusaoPage implements OnInit, AfterViewInit {
   
@@ -23,7 +35,15 @@ export class ConclusaoPage implements OnInit, AfterViewInit {
   
   isCanvasEmpty = true;
 
+<<<<<<< HEAD
   constructor(private navCtrl: NavController) {
+=======
+  constructor(private navCtrl: NavController,
+    private service: OcorrenciaService,
+    private router: Router
+
+  ) {
+>>>>>>> master
     addIcons({ arrowBack });
   }
 
@@ -112,7 +132,36 @@ export class ConclusaoPage implements OnInit, AfterViewInit {
   }
 
   finalizarESincronizar() {
+<<<<<<< HEAD
     const signatureImgBase64 = this.canvasRef.nativeElement.toDataURL();
     console.log('Assinatura salva com sucesso em Base64!', signatureImgBase64);
   }
+=======
+    const canvasElement = this.canvasRef.nativeElement;
+    const dataUrl = canvasElement.toDataURL('image/png');
+
+    // Verifica se temos um ID antes de tentar enviar
+    if (!this.service.ocorrenciaIdAtiva) {
+      console.error('Nenhuma ocorrência selecionada!');
+      return;
+    }
+
+    // O seu serviço já pega o ID de 'ocorrenciaIdAtiva' automaticamente 
+    // se você ajustou o método conforme conversamos antes.
+    this.service.salvarConclusao({ assinatura: dataUrl }).subscribe({
+      next: (res) => {
+        console.log('Finalizado com sucesso!', res);
+        
+        // Limpa o ID após concluir
+        this.service.ocorrenciaIdAtiva = null; 
+        
+        this.router.navigate(['/dashboard']); 
+      },
+      error: (err) => {
+        console.error('Erro ao salvar no servidor', err);
+      }
+    });
+  }
+
+>>>>>>> master
 }

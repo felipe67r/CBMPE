@@ -1,8 +1,14 @@
 <ion-content [fullscreen]="true" class="admin-content">
   <div class="admin-dashboard-container">
+<<<<<<< HEAD
 
     <aside class="sidebar" [class.hidden]="!sidebarAtiva">
 
+=======
+    
+    <aside class="sidebar" [class.hidden]="!sidebarAtiva">
+      
+>>>>>>> master
       <div class="sidebar-header">
         <img src="assets/logo-cbmpe.png" alt="Logo CBMPE" class="admin-logo">
         <div class="header-text">
@@ -17,15 +23,24 @@
       <section class="section-container">
         <h3>Últimas Ocorrências</h3>
         <div class="occurrences-list">
+<<<<<<< HEAD
 
           <div class="occurrence-card" *ngFor="let occ of ocorrencias">
             <div class="card-row">
               <span class="occ-title">{{ occ.natureza }}</span>
               <span class="occ-status text-muted">{{ occ.status ?? occ.estado }}</span>
+=======
+          
+          <div class="occurrence-card" *ngFor="let occ of ocorrencias">
+            <div class="card-row">
+              <span class="occ-title">{{ occ.natureza }}</span>
+              <span class="occ-status text-muted">{{ occ.status }}</span>
+>>>>>>> master
             </div>
             <div class="card-row">
               <small class="text-muted">Protocolo: {{ occ.protocolo }}</small>
               <span class="badge" [ngClass]="{
+<<<<<<< HEAD
                 'badge-high':   occ.prioridade === 'Alta'   || occ.gravidade === 'Alta',
                 'badge-medium': occ.prioridade === 'Média'  || occ.gravidade === 'Média',
                 'badge-low':     occ.prioridade === 'Baixa'  || occ.gravidade === 'Baixa'
@@ -39,41 +54,91 @@
               <span class="occ-time">
                 <ion-icon name="time-outline"></ion-icon>
                 {{ occ.horario ?? occ.horaPedido }}
+=======
+                'badge-high': occ.prioridade === 'Alta',
+                'badge-medium': occ.prioridade === 'Média',
+                'badge-low': occ.prioridade === 'Baixa'
+              }">{{ occ.prioridade }}</span>
+            </div>
+            <p class="occ-info">
+              <ion-icon name="location-outline"></ion-icon> {{ occ.endereco }}
+            </p>
+            <div class="card-row ion-align-items-center">
+              <span class="occ-time">
+                <ion-icon name="time-outline"></ion-icon> {{ occ.horario }}
+>>>>>>> master
               </span>
               <button class="btn-pdf" (click)="gerarPDF(occ.protocolo)">Gerar PDF</button>
             </div>
           </div>
 
+<<<<<<< HEAD
           <div *ngIf="ocorrencias.length === 0" class="text-muted text-center" style="font-size:12px;padding:20px;">
             Nenhuma ocorrência encontrada.
           </div>
+=======
+          <div *ngIf="ocorrencias.length === 0" class="text-muted text-center" style="font-size: 12px; padding: 20px;">
+            Nenhuma ocorrência encontrada no servidor.
+          </div>
+
+          <div class="occurrence-card">
+            <div class="card-row">
+              <span class="occ-title">Acidente de Trânsito</span>
+              <span class="occ-status text-muted">Concluído</span>
+            </div>
+            <div class="card-row">
+              <small class="text-muted">Protocolo: 802</small>
+              <span class="badge badge-medium">Média</span>
+            </div>
+            <p class="occ-info"><ion-icon name="location-outline"></ion-icon> Av. Boa Viagem, 987 - Pina</p>
+            <div class="card-row ion-align-items-center">
+              <span class="occ-time"><ion-icon name="time-outline"></ion-icon> 03:00</span>
+              <button class="btn-pdf">Gerar PDF</button>
+            </div>
+          </div>
+
+>>>>>>> master
         </div>
       </section>
 
       <section class="section-container">
         <h3>Visualização de Gráficos</h3>
         <div class="button-grid">
+<<<<<<< HEAD
           <button class="btn-secondary" [class.active]="visaoAtual === 'natureza'" (click)="openChart('natureza')">Natureza</button>
           <button class="btn-secondary" [class.active]="visaoAtual === 'tempo'" (click)="openChart('tempo')">Tempo de resposta</button>
+=======
+          <button class="btn-secondary" (click)="openChart('natureza')">Natureza</button>
+          <button class="btn-secondary" (click)="openChart('tempo')">Tempo de resposta</button>
+>>>>>>> master
         </div>
       </section>
 
       <section class="section-container">
         <h3>Exportar base de dados</h3>
         <div class="button-grid">
+<<<<<<< HEAD
           <button class="btn-secondary" (click)="exportarExcel()">
             <ion-icon name="download-outline"></ion-icon> Excel
           </button>
           <button class="btn-secondary" (click)="exportarCSV()">
             <ion-icon name="download-outline"></ion-icon> CSV
           </button>
+=======
+          <button class="btn-secondary">Excel</button>
+          <button class="btn-secondary">CSV</button>
+>>>>>>> master
         </div>
       </section>
 
       <div class="sidebar-footer">
+<<<<<<< HEAD
         <button class="btn-dark" (click)="abrirLogs()">
           <ion-icon name="list-outline"></ion-icon> Acessar logs do Sistema
         </button>
+=======
+        <button class="btn-dark">Acessar logs do Sistema</button>
+>>>>>>> master
       </div>
     </aside>
 
@@ -84,6 +149,7 @@
         <span>Exibir Painel</span>
       </button>
 
+<<<<<<< HEAD
       <div id="map" [hidden]="visaoAtual !== 'mapa'"></div>
 
       <div class="chart-wrapper-container" *ngIf="visaoAtual === 'natureza'">
@@ -137,6 +203,9 @@
         </div>
       </div>
 
+=======
+      <div id="map"></div>
+>>>>>>> master
     </main>
 
   </div>

@@ -1,9 +1,17 @@
 $vermelho-logo: #ed3237;
 
 .login-content {
+<<<<<<< HEAD
   --background: #e9ecef !important; 
 }
 
+=======
+  // Cor de fundo cinza clara do Figma
+  --background: #e9ecef !important; 
+}
+
+// Estica o grid para ocupar 100% da altura da janela do navegador
+>>>>>>> master
 .login-grid {
   width: 100%;
   height: 100%;
@@ -23,6 +31,10 @@ $vermelho-logo: #ed3237;
   padding: 24px !important;
 }
 
+<<<<<<< HEAD
+=======
+// Estilização do topo (Logo e Textos)
+>>>>>>> master
 .login-brand {
   text-align: center;
   margin-bottom: 24px;
@@ -53,6 +65,10 @@ $vermelho-logo: #ed3237;
   }
 }
 
+<<<<<<< HEAD
+=======
+// O Card Branco Flutuante do Figma
+>>>>>>> master
 .login-card {
   width: 100%;
   background: #f4f5f7;
@@ -65,6 +81,10 @@ $vermelho-logo: #ed3237;
   width: 100%;
 }
 
+<<<<<<< HEAD
+=======
+// Estrutura de espaçamento de cada campo
+>>>>>>> master
 .form-group {
   margin-bottom: 20px;
   width: 100%;
@@ -72,6 +92,10 @@ $vermelho-logo: #ed3237;
   flex-direction: column;
 }
 
+<<<<<<< HEAD
+=======
+// Rótulos de texto visíveis e organizados
+>>>>>>> master
 .custom-label {
   font-size: 14px;
   font-weight: 500;
@@ -80,6 +104,10 @@ $vermelho-logo: #ed3237;
   text-align: left;
 }
 
+<<<<<<< HEAD
+=======
+// O retângulo branco interno de cada input do Figma
+>>>>>>> master
 .input-box {
   width: 100%;
   background: #ffffff;
@@ -101,6 +129,10 @@ $vermelho-logo: #ed3237;
   }
 }
 
+<<<<<<< HEAD
+=======
+// Botões de Ação
+>>>>>>> master
 .login-actions {
   display: flex;
   flex-direction: column;
@@ -108,6 +140,10 @@ $vermelho-logo: #ed3237;
   margin-top: 28px;
 }
 
+<<<<<<< HEAD
+=======
+// Botão Entrar Vermelho do Figma
+>>>>>>> master
 .enter-button {
   --background: #cc0000;
   --background-hover: #b30000;
@@ -120,6 +156,10 @@ $vermelho-logo: #ed3237;
   margin: 0;
 }
 
+<<<<<<< HEAD
+=======
+// Botão do Painel Administrativo
+>>>>>>> master
 .admin-button {
   --background: #ffffff;
   --background-hover: #f8f9fa;

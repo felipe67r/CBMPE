@@ -30,6 +30,25 @@ bazel-out/
 
 # Node
 node_modules/
+
+/.sourcemaps
+/.versions
+/coverage
+
+# Ionic
+/.ionic
+/www
+/platforms
+/plugins
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
 npm-debug.log
 yarn-error.log
 
@@ -51,6 +70,7 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
+<<<<<<< HEAD
 # Miscellaneous
 .angular/
 .angular/cache/
@@ -61,9 +81,26 @@ connect.lock
 libpeerconnection.log
 testem.log
 typings/
+=======
+
+# Miscellaneous
+/.angular
+/.angular/cache
+.sass-cache/
+/.nx
+/.nx/cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+>>>>>>> master
 
 # System files
 .DS_Store
 Thumbs.db
+<<<<<<< HEAD
 
 node_modules/
+=======
+>>>>>>> master

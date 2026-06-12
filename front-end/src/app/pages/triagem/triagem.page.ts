@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { IonicModule, NavController, AlertController } from '@ionic/angular';
 import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
 import { RouterLink } from '@angular/router'; 
+=======
+import { IonicModule, NavController } from '@ionic/angular';
+import { MainHeaderComponent } from 'src/app/components/main-header/main-header.component';
+import { OcorrenciaService } from 'src/app/services/ocorrencia';
+import { RouterLink, Router } from '@angular/router'; 
+
+>>>>>>> master
 import { addIcons } from 'ionicons';
 import { arrowBack, arrowDown, location } from 'ionicons/icons';
 
@@ -17,13 +25,18 @@ import { arrowBack, arrowDown, location } from 'ionicons/icons';
     CommonModule, 
     FormsModule, 
     MainHeaderComponent, 
+<<<<<<< HEAD
     RouterLink 
+=======
+    RouterLink,
+>>>>>>> master
   ]
 })
 export class TriagemPage implements OnInit {
   gravidadeSelecionada: string = '';
   vitimaSelecionada: string = '';
 
+<<<<<<< HEAD
   // Variáveis do GPS
   latitude: number | null = null;
   longitude: number | null = null;
@@ -32,10 +45,17 @@ export class TriagemPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private alertCtrl: AlertController
+=======
+  constructor(
+    private navCtrl: NavController, 
+    private service: OcorrenciaService,
+    private router: Router
+>>>>>>> master
   ) {
     addIcons({ arrowBack, arrowDown, location });
   }
 
+<<<<<<< HEAD
   ngOnInit() {
     this.capturarLocalizacao();
   }
@@ -133,3 +153,21 @@ export class TriagemPage implements OnInit {
     }
   }
 } 
+=======
+  ngOnInit() {}
+
+  voltar() { this.navCtrl.back(); }
+  setGravidade(nivel: string) { this.gravidadeSelecionada = nivel; }
+  setVitima(estado: string) { this.vitimaSelecionada = estado; }
+
+  async finalizarTriagem() {
+      const dados = { tipo: 'incendio', gravidade: this.gravidadeSelecionada /* ... */ };
+      this.service.salvarTriagem(dados).subscribe((res: any) => {
+      // AQUI está o erro: o service não tem 'ocorrenciaId', tem 'ocorrenciaIdAtiva'
+      this.service.ocorrenciaIdAtiva = res.id; 
+      this.router.navigate(['/evidencias']);
+    });
+  }
+
+}
+>>>>>>> master

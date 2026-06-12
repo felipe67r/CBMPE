@@ -1,44 +1,52 @@
-const express = require('express');
-const app = express();
+import express from 'express';
+import cors from 'cors';
+import pool from './db.js'; // Importando a conexão do Postgres que criamos antes
+import ocorrenciaRoutes from './src/routes/ocorrenciaRoutes.js'; 
 
-const cors = require('cors');
+const app = express();
 const PORT = 3000;
 
 app.use(cors());
-app.use(express.json());
+// Mantido os 10mb, perfeito para as fotos em Base64 vindas do offline
+app.use(express.json({ limit: '10mb' })); 
 
-app.get('/', (req, res) => {
-  res.send('Meu back-end Node.js está rodando de boas! 🚀');
-});
+// Rota de Login integrada ao PostgreSQL
+export const login = async (req, res) => {
+  const { matricula, senha } = req.body;
+  
+  try {
+    // Busca o usuário na tabela do banco de dados
+    const resultado = await pool.query('SELECT * FROM usuarios WHERE matricula = $1', [matricula]);
 
-// Rota de login que o Ionic vai chamar
-app.post('/login', (req, res) => {
-  const { matricula, senha, unidade } = req.body;
+    if (resultado.rows.length === 0) {
+      return res.status(401).json({ mensagem: 'Matrícula não encontrada' });
+    }
 
-  console.log(`Tentativa de login. Matrícula: ${matricula}`);
+    const usuario = resultado.rows[0];
 
-  // Validação simulada (Substitua depois pela busca no Banco de Dados)
-  if (matricula === '1234' && senha === '123456') {
-    
-    // Se estiver certo, responde com status 200 (OK) e os dados do usuário
-    return res.status(200).json({
-      status: 'sucesso',
-      usuario: {
-        nome: 'Fulano de Tal',
-        matricula: matricula,
-        unidade: unidade
-      }
-    });
+    // Verifica a senha (Dica: futuramente use a biblioteca 'bcrypt' para comparar hashes)
+    if (usuario.senha === senha) {
+      return res.status(200).json({ 
+        mensagem: 'Login realizado com sucesso', 
+        token: 'fake-token-123', // Depois você pode evoluir para um token JWT real
+        usuario: { matricula: usuario.matricula } 
+      });
+    } else {
+      return res.status(401).json({ mensagem: 'Senha incorreta' });
+    }
 
-  } else {
-    // Se estiver errado, responde com status 401 (Não autorizado)
-    return res.status(401).json({ 
-      status: 'erro',
-      mensagem: 'Matrícula ou senha inválidos!' 
-    });
+  } catch (error) {
+    console.error('Erro ao realizar login:', error);
+    return res.status(500).json({ mensagem: 'Erro interno no servidor' });
   }
-});
+};
+
+app.post('/login', login);
+
+// Centraliza todas as rotas de ocorrência em /api
+app.use('/api', ocorrenciaRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta http://localhost:${PORT}`);
+  // Alterado para 127.0.0.1 para evitar problemas de resolução de DNS do Localhost
+  console.log(`🚀 Servidor rodando em http://127.0.0.1:${PORT}`);
 });

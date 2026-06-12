@@ -14,6 +14,7 @@
 
   <div class="scroll-container">
     
+<<<<<<< HEAD
     <div class="empty-photo-state" *ngIf="fotosPreview.length === 0">
       <p>Nenhuma foto registrada para esta ocorrência.</p>
       <span>Utilize o botão da câmera abaixo para capturar evidências de campo.</span>
@@ -25,6 +26,11 @@
         <button class="btn-delete-photo" (click)="removerFoto(i)">
           <ion-icon name="trash-outline"></ion-icon>
         </button>
+=======
+    <div class="photo-grid">
+      <div class="preview-box" *ngFor="let item of fotosPreview">
+        <span>Preview</span>
+>>>>>>> master
       </div>
     </div>
 
@@ -133,7 +139,11 @@
       </div>
 
       <div class="custom-field">
+<<<<<<< HEAD
         <label>Equipamentos de Diagnóstico</label>
+=======
+        <label>Equipamentos de Dignóstico</label>
+>>>>>>> master
         <div class="select-wrapper">
           <select [(ngModel)]="diagnostico">
             <option value="" disabled selected>Selecione...</option>
@@ -226,7 +236,11 @@
         </div>
       </div>
 
+<<<<<<< HEAD
     </div>
+=======
+      </div>
+>>>>>>> master
   </div>
 
   <div class="floating-actions" slot="fixed">

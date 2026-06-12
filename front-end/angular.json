@@ -22,9 +22,6 @@
               "base": "www",
               "browser": ""
             },
-              "allowedCommonJsDependencies": [
-              "leaflet"
-            ],
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"
@@ -52,8 +49,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "30kb",
-                  "maximumError": "50kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ],
               "fileReplacements": [
@@ -79,11 +76,6 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "ssl": true,
-            "sslKey": "./server.key",
-            "sslCert": "./server.crt"
-          },
           "configurations": {
             "production": {
               "buildTarget": "app:build:production"
