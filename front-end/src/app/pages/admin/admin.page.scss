@@ -309,3 +309,198 @@
 
 .text-muted { color: #666666; }
 .text-center { text-align: center; }
+
+// ─── OVERLAY / MODAIS ────────────────────────────────────────────────────────
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+
+  &.modal-logs {
+    max-width: 560px;
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 2px solid #000;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 20px;
+    color: #ed3237;
+  }
+
+  span { flex: 1; }
+
+  .btn-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #717878;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s;
+
+    &:hover { color: #ed3237; }
+  }
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid #e0e0e0;
+  justify-content: flex-end;
+  flex-shrink: 0;
+
+  .btn-secondary {
+    flex: none;
+    padding: 0 20px;
+  }
+
+  .btn-danger-outline {
+    background: transparent;
+    border: 1.5px solid #ed3237;
+    color: #ed3237;
+
+    &:hover { background: rgba(237, 50, 55, 0.08); }
+  }
+
+  .btn-dark {
+    width: auto;
+    padding: 0 20px;
+    border-radius: 8px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+// ─── MODAL PDF ───────────────────────────────────────────────────────────────
+
+.pdf-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+
+  &:last-child { border-bottom: none; }
+
+  .label {
+    font-weight: 600;
+    color: #444;
+    min-width: 90px;
+  }
+
+  .value {
+    color: #000;
+    text-align: right;
+    font-size: 13px;
+  }
+}
+
+// ─── MODAL LOGS ──────────────────────────────────────────────────────────────
+
+.logs-body {
+  padding: 12px 16px;
+  background: #0f0f0f;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  min-height: 280px;
+}
+
+.log-empty {
+  color: #888;
+  text-align: center;
+  padding: 32px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+}
+
+.log-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid #1e1e1e;
+
+  &:last-child { border-bottom: none; }
+
+  .log-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    letter-spacing: 0.3px;
+  }
+
+  .log-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .log-msg {
+    color: #d4d4d4;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .log-time {
+    color: #555;
+    font-size: 10px;
+  }
+
+  &.log-info .log-badge {
+    background: rgba(59, 139, 212, 0.2);
+    color: #85b7eb;
+  }
+
+  &.log-aviso .log-badge {
+    background: rgba(239, 159, 39, 0.2);
+    color: #EF9F27;
+  }
+
+  &.log-erro .log-badge {
+    background: rgba(237, 50, 55, 0.2);
+    color: #ed3237;
+  }
+}
